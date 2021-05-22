@@ -37,6 +37,46 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EF0AC93326590994003CE696 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EF0FB90E265601740093D68A /* ViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		EF0AC934265909A0003CE696 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		EF0AC935265909A5003CE696 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		EF0AC936265909AE003CE696 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				EF0FB90A265601740093D68A /* AppDelegate.swift */,
+				EF0FB90C265601740093D68A /* SceneDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		EF0AC937265909B6003CE696 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				EF0FB910265601740093D68A /* Main.storyboard */,
+				EF0FB915265601760093D68A /* LaunchScreen.storyboard */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
 		EF0FB8FE265601740093D68A = {
 			isa = PBXGroup;
 			children = (
@@ -56,12 +96,12 @@
 		EF0FB909265601740093D68A /* DBCacheTest */ = {
 			isa = PBXGroup;
 			children = (
-				EF0FB90A265601740093D68A /* AppDelegate.swift */,
-				EF0FB90C265601740093D68A /* SceneDelegate.swift */,
-				EF0FB90E265601740093D68A /* ViewController.swift */,
-				EF0FB910265601740093D68A /* Main.storyboard */,
+				EF0AC937265909B6003CE696 /* Storyboard */,
+				EF0AC936265909AE003CE696 /* Application */,
+				EF0AC935265909A5003CE696 /* ViewModel */,
+				EF0AC934265909A0003CE696 /* Model */,
+				EF0AC93326590994003CE696 /* View */,
 				EF0FB913265601760093D68A /* Assets.xcassets */,
-				EF0FB915265601760093D68A /* LaunchScreen.storyboard */,
 				EF0FB918265601760093D68A /* Info.plist */,
 			);
 			path = DBCacheTest;
