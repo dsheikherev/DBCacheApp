@@ -181,6 +181,10 @@ final class DefaultDbViewModel: DbViewModel {
     }
     
     private func cacheRemoveAll() {
+        // Entries that have been just created in cache
+        // Just should be totally removed from cache array
+        cache.removeAll(where: { $0.isNew })
+        
         cache.forEach { $0.isRemoved = true }
     }
     
