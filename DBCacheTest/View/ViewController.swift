@@ -38,7 +38,9 @@ class ViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
         
-        viewModel = DefaultDbViewModel()
+        //FIXME
+        viewModel = DefaultDbViewModel(database: DefaultDatabase())
+        
         bind(to: viewModel)
         viewModel.onViewDidLoad()
     }
@@ -72,8 +74,8 @@ class ViewController: UIViewController {
 // MARK: Methods to observe changes in ViewModel properties
 extension ViewController {
     private func bind(to viewModel: DbViewModel) {
-        viewModel.dbEntries.observe(on: self) { [weak self] _ in self?.updateDbTable() }
-        viewModel.cacheEntries.observe(on: self) { [weak self] _ in self?.updateCacheTable() }
+        viewModel.dbTableEntries.observe(on: self) { [weak self] _ in self?.updateDbTable() }
+        viewModel.cacheTableEntries.observe(on: self) { [weak self] _ in self?.updateCacheTable() }
         viewModel.isCacheChangesAllowed.observe(on: self) { [weak self] enable in self?.enableAlterButtons(enable) }
         viewModel.isCopyToCacheAllowed.observe(on: self) { [weak self] enable in self?.enableCopyToCacheButton(enable) }
         viewModel.isApplyChangesAllowed.observe(on: self) { [weak self] enable in self?.enableApplyChangesButton(enable) }
@@ -169,9 +171,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
        
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == cacheTableView {
-            return viewModel.cacheEntries.value.count
+            return viewModel.cacheTableEntries.value.count
         } else {
-            return viewModel.dbEntries.value.count
+            return viewModel.dbTableEntries.value.count
         }
     }
     
@@ -181,18 +183,21 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         
         if tableView == cacheTableView {
             cell = tableView.dequeueReusableCell(withIdentifier: "CacheTableViewCell", for: indexPath)
-            node = viewModel.cacheEntries.value[indexPath.row]
+            node = viewModel.cacheTableEntries.value[indexPath.row]
         } else {
             cell = tableView.dequeueReusableCell(withIdentifier: "DbTableViewCell", for: indexPath)
-            node = viewModel.dbEntries.value[indexPath.row]
+            node = viewModel.dbTableEntries.value[indexPath.row]
         }
         
-        if !node.isRemoved {
-            cell.textLabel?.text = node.value
+        cell.textLabel?.attributedText = nil
+        cell.textLabel?.text = nil
+        
+        if node.isRemoved {
+            cell.textLabel?.attributedText = node.value.strikethrough()
         } else {
-            cell.textLabel?.attributedText = strikethrough(node.value)
+            cell.textLabel?.text = node.value
         }
-        cell.indentationLevel = node.indentation
+        cell.indentationLevel = 2 * node.indentation
         
         return cell
     }
