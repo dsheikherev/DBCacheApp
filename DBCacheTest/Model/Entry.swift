@@ -11,7 +11,7 @@ protocol Entry {
 //    associatedtype Value
 //    var value: Value { get set }
     var value: String { get set }
-    var id: UInt64 { get }
-    var parentId: UInt64? { get }
-    var isRemoved: Bool { get }
+    var id: UInt64 { get set }
+    var parentId: UInt64? { get set }
+    var isRemoved: Bool { get set }
 }

@@ -17,8 +17,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var alterNodeButton: UIButton!
     @IBOutlet weak var applyChangesButton: UIButton!
     @IBOutlet weak var resetButton: UIButton!
-    @IBOutlet weak var moveToCacheButton: UIButton!
+    @IBOutlet weak var copyToCacheButton: UIButton!
     
+    // We are sure it will be initialized
+    // Or we are not interested to run app without ViewModel
     var viewModel: DbViewModel!
           
     override func viewDidLoad() {
@@ -46,17 +48,18 @@ class ViewController: UIViewController {
         removeNodeButton.isEnabled = false
         alterNodeButton.isEnabled = false
         applyChangesButton.isEnabled = false
-        moveToCacheButton.isEnabled = false
+        copyToCacheButton.isEnabled = false
     }
     
     @objc func appMovedToBackground() {
         if let selectedIndexPath = cacheTableView.indexPathForSelectedRow {
             cacheTableView.deselectRow(at: selectedIndexPath, animated: false)
+            enableAlterButtons(false)
         }
         if let selectedIndexPath = dbTableView.indexPathForSelectedRow {
             dbTableView.deselectRow(at: selectedIndexPath, animated: false)
+            enableCopyToCacheButton(false)
         }
-        moveToCacheButton.isEnabled = false
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -69,8 +72,11 @@ class ViewController: UIViewController {
 // MARK: Methods to observe changes in ViewModel properties
 extension ViewController {
     private func bind(to viewModel: DbViewModel) {
-        viewModel.database.observe(on: self) { [weak self] _ in self?.updateDbTable() }
-        viewModel.cache.observe(on: self) { [weak self] _ in self?.updateCacheTable() }
+        viewModel.dbEntries.observe(on: self) { [weak self] _ in self?.updateDbTable() }
+        viewModel.cacheEntries.observe(on: self) { [weak self] _ in self?.updateCacheTable() }
+        viewModel.isCacheChangesAllowed.observe(on: self) { [weak self] enable in self?.enableAlterButtons(enable) }
+        viewModel.isCopyToCacheAllowed.observe(on: self) { [weak self] enable in self?.enableCopyToCacheButton(enable) }
+        viewModel.isApplyChangesAllowed.observe(on: self) { [weak self] enable in self?.enableApplyChangesButton(enable) }
     }
     
     private func updateCacheTable() {
@@ -80,20 +86,64 @@ extension ViewController {
     private func updateDbTable() {
         dbTableView.reloadData()
     }
+    
+    func enableAlterButtons(_ shouldEnable: Bool) {
+        addNodeButton.isEnabled = shouldEnable
+        removeNodeButton.isEnabled = shouldEnable
+        alterNodeButton.isEnabled = shouldEnable
+    }
+    
+    func enableCopyToCacheButton(_ shouldEnable: Bool) {
+        copyToCacheButton.isEnabled = shouldEnable
+    }
+    
+    func enableApplyChangesButton(_ shouldEnable: Bool) {
+        applyChangesButton.isEnabled = shouldEnable
+    }
 }
 
 // MARK: Buttons' action methods
 extension ViewController {
     @IBAction func onAddButton(_ sender: UIButton) {
-        viewModel.onAddNewNodeToCache()
+        if let indexpath = cacheTableView.indexPathForSelectedRow {
+            let index = indexpath.row
+            showInputDialog(title: "Add new entry",
+                            message: "Enter value",
+                            actionTitle: "Add",
+                            actionHandler: { [weak self] (input: String?) in
+                                guard let self = self,
+                                      let input = input,
+                                      !input.isEmpty else { return }
+                                
+                                self.viewModel.onAddNewEntry(with: input, after: index)
+                            })
+            cacheTableView.deselectRow(at: indexpath, animated: true)
+        }
     }
     
     @IBAction func onRemoveButton(_ sender: UIButton) {
-        viewModel.onRemoveNodeFromCache()
+        if let indexpath = cacheTableView.indexPathForSelectedRow {
+            let index = indexpath.row
+            viewModel.onRemoveEntry(index)
+            cacheTableView.deselectRow(at: indexpath, animated: true)
+        }
     }
     
     @IBAction func onAlterButton(_ sender: UIButton) {
-        viewModel.onChangeValueOfNodeInCache()
+        if let indexpath = cacheTableView.indexPathForSelectedRow {
+            let index = indexpath.row
+            showInputDialog(title: "Change entry",
+                            message: "New value",
+                            actionTitle: "Change",
+                            actionHandler: { [weak self] (input: String?) in
+                                guard let self = self,
+                                      let input = input,
+                                      !input.isEmpty else { return }
+                                
+                                self.viewModel.onChangeCacheEntry(index, value: input)
+                            })
+            cacheTableView.deselectRow(at: indexpath, animated: true)
+        }
     }
     
     @IBAction func onApplyButton(_ sender: UIButton) {
@@ -105,7 +155,6 @@ extension ViewController {
             let index = indexpath.row
             viewModel.onCopyEntry(with: index)
             dbTableView.deselectRow(at: indexpath, animated: true)
-            moveToCacheButton.isEnabled = false
         }
     }
     
@@ -120,33 +169,39 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
        
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == cacheTableView {
-            return viewModel.cache.value.count
+            return viewModel.cacheEntries.value.count
         } else {
-            return viewModel.database.value.count
+            return viewModel.dbEntries.value.count
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell
+        let node: TableViewEntry
+        
         if tableView == cacheTableView {
             cell = tableView.dequeueReusableCell(withIdentifier: "CacheTableViewCell", for: indexPath)
-            let node = viewModel.cache.value[indexPath.row]
-            cell.textLabel?.text = node.value
-            cell.indentationLevel = node.indentation
+            node = viewModel.cacheEntries.value[indexPath.row]
         } else {
             cell = tableView.dequeueReusableCell(withIdentifier: "DbTableViewCell", for: indexPath)
-            let node = viewModel.database.value[indexPath.row]
-            cell.textLabel?.text = node.value
-            cell.indentationLevel = node.indentation
+            node = viewModel.dbEntries.value[indexPath.row]
         }
+        
+        if !node.isRemoved {
+            cell.textLabel?.text = node.value
+        } else {
+            cell.textLabel?.attributedText = strikethrough(node.value)
+        }
+        cell.indentationLevel = node.indentation
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == cacheTableView {
-
+            viewModel.onCacheEntrySelected(index: indexPath.row)
         } else {
-            moveToCacheButton.isEnabled = true
+            viewModel.onDbEntrySelected(index: indexPath.row)
         }
     }
     
@@ -155,7 +210,11 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
            indexPathForSelectedRow == indexPath {
             tableView.deselectRow(at: indexPath, animated: false)
             
-            moveToCacheButton.isEnabled = false
+            if tableView == cacheTableView {
+                enableAlterButtons(false)
+            } else {
+                enableCopyToCacheButton(false)
+            }
             return nil
         }
         return indexPath

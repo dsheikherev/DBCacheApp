@@ -21,6 +21,8 @@
 		EF0FB912265601740093D68A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF0FB910265601740093D68A /* Main.storyboard */; };
 		EF0FB914265601760093D68A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF0FB913265601760093D68A /* Assets.xcassets */; };
 		EF0FB917265601760093D68A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF0FB915265601760093D68A /* LaunchScreen.storyboard */; };
+		EF2CD1F4265C94DA00A582BD /* StrikethroughString.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2CD1F3265C94DA00A582BD /* StrikethroughString.swift */; };
+		EF2CD1F7265CA4AA00A582BD /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2CD1F6265CA4AA00A582BD /* UIViewController+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +42,8 @@
 		EF0FB913265601760093D68A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EF0FB916265601760093D68A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EF0FB918265601760093D68A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EF2CD1F3265C94DA00A582BD /* StrikethroughString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrikethroughString.swift; sourceTree = "<group>"; };
+		EF2CD1F6265CA4AA00A582BD /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +108,7 @@
 			children = (
 				EF0AC93F26592C2D003CE696 /* UniqueId.swift */,
 				EF0AC9452659FFD9003CE696 /* Observable.swift */,
+				EF2CD1F3265C94DA00A582BD /* StrikethroughString.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -127,6 +132,7 @@
 		EF0FB909265601740093D68A /* DBCacheTest */ = {
 			isa = PBXGroup;
 			children = (
+				EF2CD1F5265CA44B00A582BD /* Extension */,
 				EF0AC93E26592C1E003CE696 /* Helper */,
 				EF0AC937265909B6003CE696 /* Storyboard */,
 				EF0AC936265909AE003CE696 /* Application */,
@@ -137,6 +143,14 @@
 				EF0FB918265601760093D68A /* Info.plist */,
 			);
 			path = DBCacheTest;
+			sourceTree = "<group>";
+		};
+		EF2CD1F5265CA44B00A582BD /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				EF2CD1F6265CA4AA00A582BD /* UIViewController+Extension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -210,6 +224,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EF0AC93B265925CB003CE696 /* CacheEntry.swift in Sources */,
+				EF2CD1F7265CA4AA00A582BD /* UIViewController+Extension.swift in Sources */,
 				EF0AC94026592C2D003CE696 /* UniqueId.swift in Sources */,
 				EF0FB90F265601740093D68A /* ViewController.swift in Sources */,
 				EF0AC94426595B19003CE696 /* DbViewModel.swift in Sources */,
@@ -219,6 +234,7 @@
 				EF0AC93926590ED7003CE696 /* Entry.swift in Sources */,
 				EF0AC94226592FD3003CE696 /* Database.swift in Sources */,
 				EF0AC948265A006F003CE696 /* TableViewEntry.swift in Sources */,
+				EF2CD1F4265C94DA00A582BD /* StrikethroughString.swift in Sources */,
 				EF0AC93D265925D5003CE696 /* DbEntry.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

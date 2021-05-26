@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_5" orientation="landscape" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -14,11 +12,11 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="DBCacheTest" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="896" height="414"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fV3-NS-iAq" userLabel="Controls View">
-                                <rect key="frame" x="44" y="343" width="808" height="50"/>
+                                <rect key="frame" x="0.0" y="550" width="600" height="50"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="kCn-Qe-B0c" userLabel="Alter Buttons Stack View">
                                         <rect key="frame" x="8" y="0.0" width="110" height="50"/>
@@ -50,7 +48,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="CQ4-Aw-Jj0" userLabel="Apply Stack View">
-                                        <rect key="frame" x="313" y="0.0" width="51" height="50"/>
+                                        <rect key="frame" x="209" y="0.0" width="51" height="50"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oc9-Bs-Jw1" userLabel="Apply">
                                                 <rect key="frame" x="0.0" y="7" width="51" height="36"/>
@@ -63,7 +61,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="MY6-Bh-59k" userLabel="Reset Stack View">
-                                        <rect key="frame" x="750" y="0.0" width="50" height="50"/>
+                                        <rect key="frame" x="542" y="0.0" width="50" height="50"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xPD-eR-dgf" userLabel="Reset">
                                                 <rect key="frame" x="0.0" y="7" width="50" height="36"/>
@@ -89,16 +87,16 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Pb1-M5-cHI" userLabel="Cache Table View">
-                                <rect key="frame" x="44" y="0.0" width="364" height="343"/>
+                                <rect key="frame" x="0.0" y="0.0" width="260" height="550"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <sections/>
                             </tableView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dRe-cL-0ft" userLabel="DB Table View">
-                                <rect key="frame" x="488" y="0.0" width="364" height="343"/>
+                                <rect key="frame" x="340" y="0.0" width="260" height="550"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mGG-lM-WTy" userLabel="Move Button">
-                                <rect key="frame" x="429.66666666666669" y="189" width="37" height="36"/>
+                                <rect key="frame" x="281.5" y="282" width="37" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="&lt;&lt;&lt;"/>
                                 <connections>
@@ -136,8 +134,8 @@
                         <outlet property="alterNodeButton" destination="g68-cE-bcj" id="lGT-kX-xnW"/>
                         <outlet property="applyChangesButton" destination="Oc9-Bs-Jw1" id="K5l-hr-znS"/>
                         <outlet property="cacheTableView" destination="Pb1-M5-cHI" id="W41-Vz-wfF"/>
+                        <outlet property="copyToCacheButton" destination="mGG-lM-WTy" id="mwM-Up-0tm"/>
                         <outlet property="dbTableView" destination="dRe-cL-0ft" id="Zhz-bv-toO"/>
-                        <outlet property="moveToCacheButton" destination="mGG-lM-WTy" id="mwM-Up-0tm"/>
                         <outlet property="removeNodeButton" destination="7iB-QW-c8B" id="uoR-15-qhD"/>
                         <outlet property="resetButton" destination="xPD-eR-dgf" id="1yN-6J-IJS"/>
                     </connections>
