@@ -139,6 +139,7 @@ final class DefaultDbViewModel: DbViewModel {
     func onApplyChanges() {
         // If ROOT is removed in cache then
         // just remove all entries in DB
+        // because it doesn't matter what was changed
         if rootIsRemoved {
             dataBase.removeAllEntries()
         } else {
@@ -250,6 +251,7 @@ final class DefaultDbViewModel: DbViewModel {
             guard let self = self else { return }
             sleep(1) // simulate loading of Database
             var entries = self.dataBase.getAllEntries()
+            entries.sort { $0.id < $1.id }
             entries = self.groupParentsWithChildren(in: entries)
             
             self.dbTableEntries.value = self.makeTable(of: entries)
