@@ -16,11 +16,13 @@ final class DefaultDatabase: Database {
     
     func getEntry(with id: UInt64) -> Entry? {
         guard let entry = dbEntries[id] else { return nil }
+        guard !entry.isRemoved else { return nil }
+        
         return entry
     }
     
     func getAllEntries() -> [Entry] {
-        return Array(dbEntries.values)
+        return Array(dbEntries.values.filter { !$0.isRemoved })
     }
     
     func removeAllEntries() {
