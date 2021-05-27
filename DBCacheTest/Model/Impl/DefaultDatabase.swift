@@ -22,7 +22,10 @@ final class DefaultDatabase: Database {
     }
     
     func getAllEntries() -> [Entry] {
-        return Array(dbEntries.values.filter { !$0.isRemoved })
+        // I think ideally Database shouldn't return removed entries
+        // But it our case we should show them on TableView
+//        return Array(dbEntries.values.filter { !$0.isRemoved })
+        return Array(dbEntries.values)
     }
     
     func removeAllEntries() {
