@@ -40,14 +40,14 @@ protocol DbViewModel: DbViewModelInput & DbViewModelOutput {}
 
 final class DefaultDbViewModel: DbViewModel {
     
-    private (set) var dbTableEntries: Observable<[TableViewEntry]> = Observable([])
-    private (set) var cacheTableEntries: Observable<[TableViewEntry]> = Observable([])
+    let dbTableEntries: Observable<[TableViewEntry]> = Observable([])
+    let cacheTableEntries: Observable<[TableViewEntry]> = Observable([])
 
-    private (set) var isCacheChangesAllowed: Observable<Bool> = Observable(false)
-    private (set) var isCopyToCacheAllowed: Observable<Bool> = Observable(false)
-    private (set) var isApplyChangesAllowed: Observable<Bool> = Observable(false)
+    let isCacheChangesAllowed: Observable<Bool> = Observable(false)
+    let isCopyToCacheAllowed: Observable<Bool> = Observable(false)
+    let isApplyChangesAllowed: Observable<Bool> = Observable(false)
     
-    var loading: Observable<DbViewModelLoadingType?> = Observable(.none)
+    let loading: Observable<DbViewModelLoadingType?> = Observable(.none)
 
     private let dataBase: Database
     

@@ -11,8 +11,8 @@ class CacheEntry: Entry {
     var value: String
     var id: UInt64
     var parentId: UInt64?
-    var isRemoved: Bool = false
-    var isNew: Bool = false
+    var isRemoved: Bool
+    var isNew: Bool
     
     init(value: String, id: UInt64, parentId: UInt64?, isRemoved: Bool = false, isNew: Bool = false) {
         self.value = value
