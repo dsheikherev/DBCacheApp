@@ -8,8 +8,8 @@
 import Foundation
 
 struct DbEntry: Entry {
-    var value: String
     var id: UInt64
+    var value: String
     var parentId: UInt64?
     var isRemoved: Bool = false
 }

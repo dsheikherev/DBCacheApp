@@ -9,9 +9,14 @@ import Foundation
 
 protocol Database {
     func getEntry(with id: UInt64) -> Entry?
-    func getAll() -> [Entry]
-    func removeAll()
-    func add()
+    func getAllEntries() -> [Entry]
+    func removeAllEntries()
+    
+    @discardableResult
+    func addEntry(id: UInt64, value: String, parentId: UInt64?, isRemoved: Bool) -> Bool
+    
+    @discardableResult
+    func changeEntry(id: UInt64, value: String, isRemoved: Bool) -> Bool
     
     func reset()
 }

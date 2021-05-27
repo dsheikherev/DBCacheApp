@@ -71,8 +71,9 @@ final class DefaultDbViewModel: DbViewModel {
         isCopyToCacheAllowed.value = false
         isCacheChangesAllowed.value = false
         
-        let entry = dbTableEntries.value[index]
+        let entryId = dbTableEntries.value[index].id
         
+        guard let entry = dataBase.getEntry(with: entryId) else { return }
         guard !entry.isRemoved else { return }
         guard !cacheTableEntries.value.contains(where: { $0.id == entry.id }) else { return }
         
@@ -130,9 +131,18 @@ final class DefaultDbViewModel: DbViewModel {
         // If ROOT is removed in cache then
         // just remove all entries in DB
         if rootIsRemoved {
-            dataBase.removeAll()
+            dataBase.removeAllEntries()
         } else {
-            
+            for entry in cache {
+                if entry.isNew {
+                    // When we add new entry which is non-existent in database
+                    // It can not be removed
+                    // Because we destroy all new & removed entries
+                    dataBase.addEntry(id: entry.id, value: entry.value, parentId: entry.parentId, isRemoved: false)
+                } else {
+                    dataBase.changeEntry(id: entry.id, value: entry.value, isRemoved: entry.isRemoved)
+                }
+            }
         }
         
         cache.removeAll()
@@ -140,6 +150,8 @@ final class DefaultDbViewModel: DbViewModel {
         cacheTableEntries.value.removeAll()
         isCacheChangesAllowed.value = false
         isApplyChangesAllowed.value = false
+        
+        load()
     }
     
     func onReset() {
@@ -225,7 +237,7 @@ final class DefaultDbViewModel: DbViewModel {
     
     //MARK: Private DefaultDbViewModel methods mostly for presenting data in View
     private func load() {
-        var entries = dataBase.getAll()
+        var entries = dataBase.getAllEntries()
         entries = groupParentsWithChildren(in: entries)
         
         dbTableEntries.value = makeTable(of: entries)
