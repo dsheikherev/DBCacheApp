@@ -139,6 +139,7 @@ final class DefaultDbViewModel: DbViewModel {
     func onApplyChanges() {
         // If ROOT is removed in cache then
         // just remove all entries in DB
+        // because it doesn't matter what was changed
         if rootIsRemoved {
             dataBase.removeAllEntries()
         } else {

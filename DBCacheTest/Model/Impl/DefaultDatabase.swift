@@ -83,25 +83,27 @@ final class DefaultDatabase: Database {
         dbEntries[id] = DbEntry(id: id, value: "Node3", parentId: 2)
         id = UniqueId.generate()
         dbEntries[id] = DbEntry(id: id, value: "Node4", parentId: 3)
-
         id = UniqueId.generate()
-        dbEntries[id] = DbEntry(id: id, value: "Node5", parentId: 0)
+        dbEntries[id] = DbEntry(id: id, value: "Node5", parentId: 4)
+        
         id = UniqueId.generate()
-        dbEntries[id] = DbEntry(id: id, value: "Node6", parentId: 5)
+        dbEntries[id] = DbEntry(id: id, value: "Node6", parentId: 0)
         id = UniqueId.generate()
         dbEntries[id] = DbEntry(id: id, value: "Node7", parentId: 6)
         id = UniqueId.generate()
         dbEntries[id] = DbEntry(id: id, value: "Node8", parentId: 7)
+        id = UniqueId.generate()
+        dbEntries[id] = DbEntry(id: id, value: "Node9", parentId: 8)
 
         id = UniqueId.generate()
-        dbEntries[id] = DbEntry(id: id, value: "Node9", parentId: 0)
+        dbEntries[id] = DbEntry(id: id, value: "Node10", parentId: 0)
         id = UniqueId.generate()
-        dbEntries[id] = DbEntry(id: id, value: "Node10", parentId: 9)
+        dbEntries[id] = DbEntry(id: id, value: "Node11", parentId: 10)
         id = UniqueId.generate()
-        dbEntries[id] = DbEntry(id: id, value: "Node11", parentId: 9)
+        dbEntries[id] = DbEntry(id: id, value: "Node12", parentId: 11)
 
         id = UniqueId.generate()
-        dbEntries[id] = DbEntry(id: id, value: "Node12", parentId: 0)
+        dbEntries[id] = DbEntry(id: id, value: "Node13", parentId: 0)
     }
 
 }
