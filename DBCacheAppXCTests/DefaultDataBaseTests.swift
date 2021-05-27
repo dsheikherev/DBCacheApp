@@ -80,7 +80,7 @@ class DefaultDataBaseTests: XCTestCase {
         XCTAssert(valueAfter != nil)
         
         XCTAssertTrue(valueBefore != valueAfter)
-        XCTAssertTrue(valueAfter == newValue)
+        XCTAssertEqual(valueAfter, newValue)
     }
     
     func testEmptyValueOnNewEntryAdded() {
@@ -103,7 +103,7 @@ class DefaultDataBaseTests: XCTestCase {
         let valueAfter = database.getEntry(with: 0)?.value
         XCTAssert(valueAfter != nil)
     
-        XCTAssertTrue(valueBefore == valueAfter)
+        XCTAssertEqual(valueBefore, valueAfter)
         
         XCTAssertTrue(valueAfter != emptyValue)
     }
@@ -122,6 +122,6 @@ class DefaultDataBaseTests: XCTestCase {
         database.reset()
         
         let countAfterReset = database.getAllEntries().count
-        XCTAssertTrue(countBefore == countAfterReset)
+        XCTAssertEqual(countBefore, countAfterReset)
     }
 }

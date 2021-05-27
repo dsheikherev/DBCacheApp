@@ -38,6 +38,16 @@
                ReferencedContainer = "container:DBCacheApp.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "EF2DF5B8265FF7AB0055374C"
+               BuildableName = "DBCacheAppUITests.xctest"
+               BlueprintName = "DBCacheAppUITests"
+               ReferencedContainer = "container:DBCacheApp.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

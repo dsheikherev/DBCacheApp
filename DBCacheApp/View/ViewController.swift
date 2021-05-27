@@ -25,7 +25,11 @@ class ViewController: UIViewController {
           
     override func viewDidLoad() {
         super.viewDidLoad()
+        // for UI tests purpose
+        dbTableView.accessibilityIdentifier = "dbTableViewIdentifier"
+        cacheTableView.accessibilityIdentifier = "cacheTableViewIdentifier"
         // Do any additional setup after loading the view.
+        
         initialStyle()
         
         cacheTableView.delegate = self
