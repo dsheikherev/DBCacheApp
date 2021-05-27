@@ -7,6 +7,10 @@
 
 import Foundation
 
+enum DbViewModelLoadingType {
+    case dbLoading
+}
+
 protocol DbViewModelInput {
     func onViewDidLoad()
     
@@ -24,9 +28,12 @@ protocol DbViewModelInput {
 protocol DbViewModelOutput {
     var dbTableEntries: Observable<[TableViewEntry]> { get }
     var cacheTableEntries: Observable<[TableViewEntry]> { get }
+    
     var isCacheChangesAllowed: Observable<Bool> { get }
     var isCopyToCacheAllowed: Observable<Bool> { get }
     var isApplyChangesAllowed: Observable<Bool> { get }
+    
+    var loading: Observable<DbViewModelLoadingType?> { get }
 }
 
 protocol DbViewModel: DbViewModelInput & DbViewModelOutput {}
@@ -39,6 +46,8 @@ final class DefaultDbViewModel: DbViewModel {
     private (set) var isCacheChangesAllowed: Observable<Bool> = Observable(false)
     private (set) var isCopyToCacheAllowed: Observable<Bool> = Observable(false)
     private (set) var isApplyChangesAllowed: Observable<Bool> = Observable(false)
+    
+    var loading: Observable<DbViewModelLoadingType?> = Observable(.none)
 
     private let dataBase: Database
     
@@ -237,10 +246,23 @@ final class DefaultDbViewModel: DbViewModel {
     
     //MARK: Private DefaultDbViewModel methods mostly for presenting data in View
     private func load() {
-        var entries = dataBase.getAllEntries()
-        entries = groupParentsWithChildren(in: entries)
+        let workItem = DispatchWorkItem { [weak self] in
+            guard let self = self else { return }
+            sleep(1) // simulate loading of Database
+            var entries = self.dataBase.getAllEntries()
+            entries = self.groupParentsWithChildren(in: entries)
+            
+            self.dbTableEntries.value = self.makeTable(of: entries)
+        }
         
-        dbTableEntries.value = makeTable(of: entries)
+        workItem.notify(queue: DispatchQueue.main) { [weak self] in
+            guard let self = self else { return }
+            
+            self.loading.value = .none
+        }
+        
+        loading.value = .dbLoading
+        DispatchQueue.global(qos: .utility).async(execute: workItem)
     }
     
     private func makeTable(of entries: [Entry]) -> [TableViewEntry] {

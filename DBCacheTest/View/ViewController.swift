@@ -76,9 +76,12 @@ extension ViewController {
     private func bind(to viewModel: DbViewModel) {
         viewModel.dbTableEntries.observe(on: self) { [weak self] _ in self?.updateDbTable() }
         viewModel.cacheTableEntries.observe(on: self) { [weak self] _ in self?.updateCacheTable() }
+        
         viewModel.isCacheChangesAllowed.observe(on: self) { [weak self] enable in self?.enableAlterButtons(enable) }
         viewModel.isCopyToCacheAllowed.observe(on: self) { [weak self] enable in self?.enableCopyToCacheButton(enable) }
         viewModel.isApplyChangesAllowed.observe(on: self) { [weak self] enable in self?.enableApplyChangesButton(enable) }
+        
+        viewModel.loading.observe(on: self) { [weak self] in self?.updateLoading($0) }
     }
     
     private func updateCacheTable() {
@@ -101,6 +104,15 @@ extension ViewController {
     
     func enableApplyChangesButton(_ shouldEnable: Bool) {
         applyChangesButton.isEnabled = shouldEnable
+    }
+    
+    func updateLoading(_ loading: DbViewModelLoadingType?) {
+        switch loading {
+            case .dbLoading:
+                LoadingView.show(in: dbTableView.frame)
+            case .none:
+                LoadingView.hide()
+        }
     }
 }
 
