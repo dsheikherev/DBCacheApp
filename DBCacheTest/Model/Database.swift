@@ -10,6 +10,9 @@ import Foundation
 protocol Database {
     func getEntry(with id: UInt64) -> Entry?
     func getAllEntries() -> [Entry]
+    
+    @discardableResult
+    func removeEntry(id: UInt64) -> Bool
     func removeAllEntries()
     
     @discardableResult

@@ -11,6 +11,7 @@ final class DefaultDatabase: Database {
     private var dbEntries = [UInt64: DbEntry](minimumCapacity: 25)
     
     init() {
+        UniqueId.reset()
         load()
     }
     
@@ -38,6 +39,7 @@ final class DefaultDatabase: Database {
     func addEntry(id: UInt64, value: String, parentId: UInt64?, isRemoved: Bool) -> Bool {
         // Default database does not allow to add one more ROOT entry
         guard let parentId = parentId else { return false }
+        guard !value.isEmpty else { return false }
         
         dbEntries[id] = DbEntry(id: id, value: value, parentId: parentId, isRemoved: isRemoved)
         return true
@@ -63,8 +65,9 @@ final class DefaultDatabase: Database {
         load()
     }
     
-    private func removeEntry(id: UInt64) {
-        guard let entry = dbEntries[id] else { return }
+    @discardableResult
+    func removeEntry(id: UInt64) -> Bool {
+        guard let entry = dbEntries[id] else { return false }
         
         dbEntries[id] = DbEntry(id: entry.id, value: entry.value, parentId: entry.parentId, isRemoved: true)
         
@@ -74,6 +77,7 @@ final class DefaultDatabase: Database {
         for childId in childrenIds {
             removeEntry(id: childId)
         }
+        return true
     }
     
     private func load() {
