@@ -250,6 +250,7 @@ final class DefaultDbViewModel: DbViewModel {
             guard let self = self else { return }
             sleep(1) // simulate loading of Database
             var entries = self.dataBase.getAllEntries()
+            entries.sort { $0.id < $1.id }
             entries = self.groupParentsWithChildren(in: entries)
             
             self.dbTableEntries.value = self.makeTable(of: entries)
