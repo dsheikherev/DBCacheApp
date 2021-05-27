@@ -1,6 +1,6 @@
 //
 //  String+Extension.swift
-//  DBCacheTest
+//  DBCacheApp
 //
 //  Created by Denis Sheikherev on 26.05.2021.
 //

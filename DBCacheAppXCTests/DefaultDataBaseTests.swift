@@ -1,15 +1,15 @@
 //
-//  DBCacheTestXCTests.swift
-//  DBCacheTestXCTests
+//  DefaultDataBaseTests.swift
+//
 //
 //  Created by Denis Sheikherev on 27.05.2021.
 //
 
 import XCTest
 
-@testable import DBCacheTest
+@testable import DBCacheApp
 
-class DBCacheTestXCTests: XCTestCase {
+class DefaultDataBaseTests: XCTestCase {
 
     var database: Database!
     
