@@ -132,4 +132,104 @@ class DBCacheAppUITests: XCTestCase {
         app.buttons["-"].tap()
         XCTAssertEqual(cacheTableView.cells.count, 1)
     }
+    
+    func testControlsDisabledForRemovedCacheEntry() {
+        let dbTableView = app.tables.matching(identifier: "dbTableViewIdentifier")
+        let cacheTableView = app.tables.matching(identifier: "cacheTableViewIdentifier")
+        
+        dbTableView.cells.staticTexts["Node1"].tap()
+        
+        XCTAssertTrue(app.buttons["<<<"].isEnabled == true)
+        app.buttons["<<<"].tap()
+        XCTAssertTrue(cacheTableView.cells.staticTexts["Node1"].exists)
+        
+        cacheTableView.cells.staticTexts["Node1"].tap()
+        XCTAssertTrue(app.buttons["-"].isEnabled == true)
+        
+        app.buttons["-"].tap()
+        cacheTableView.cells.staticTexts["Node1"].tap()
+        XCTAssertTrue(app.buttons["+"].isEnabled == false)
+        XCTAssertTrue(app.buttons["-"].isEnabled == false)
+        XCTAssertTrue(app.buttons["a"].isEnabled == false)
+    }
+    
+    func testCopyToCacheDisabledForRemovedDbEntry() {
+        let dbTableView = app.tables.matching(identifier: "dbTableViewIdentifier")
+        let cacheTableView = app.tables.matching(identifier: "cacheTableViewIdentifier")
+        
+        dbTableView.cells.staticTexts["Node1"].tap()
+        
+        XCTAssertTrue(app.buttons["<<<"].isEnabled == true)
+        app.buttons["<<<"].tap()
+        XCTAssertTrue(cacheTableView.cells.staticTexts["Node1"].exists)
+        
+        cacheTableView.cells.staticTexts["Node1"].tap()
+        XCTAssertTrue(app.buttons["-"].isEnabled == true)
+        
+        app.buttons["-"].tap()
+        app.buttons["Apply"].tap()
+        XCTAssertTrue(dbTableView.cells.staticTexts["Node1"].waitForExistence(timeout: 5))
+        
+        dbTableView.cells.staticTexts["Node1"].tap()
+        XCTAssertTrue(app.buttons["<<<"].isEnabled == false)
+        dbTableView.cells.staticTexts["Node2"].tap()
+        XCTAssertTrue(app.buttons["<<<"].isEnabled == false)
+        dbTableView.cells.staticTexts["Node3"].tap()
+        XCTAssertTrue(app.buttons["<<<"].isEnabled == false)
+        dbTableView.cells.staticTexts["Node4"].tap()
+        XCTAssertTrue(app.buttons["<<<"].isEnabled == false)
+        dbTableView.cells.staticTexts["Node5"].tap()
+        XCTAssertTrue(app.buttons["<<<"].isEnabled == false)
+    }
+    
+    func testInitialStateOnReset() {
+        let dbTableView = app.tables.matching(identifier: "dbTableViewIdentifier")
+        let cacheTableView = app.tables.matching(identifier: "cacheTableViewIdentifier")
+        
+        dbTableView.cells.staticTexts["Node1"].tap()
+        
+        XCTAssertTrue(app.buttons["<<<"].isEnabled == true)
+        app.buttons["<<<"].tap()
+        XCTAssertTrue(cacheTableView.cells.staticTexts["Node1"].exists)
+        
+        cacheTableView.cells.staticTexts["Node1"].tap()
+        XCTAssertTrue(app.buttons["-"].isEnabled == true)
+        
+        app.buttons["-"].tap()
+        app.buttons["Apply"].tap()
+        XCTAssertTrue(dbTableView.cells.staticTexts["Node1"].waitForExistence(timeout: 5))
+        
+        dbTableView.cells.staticTexts["Node1"].tap()
+        XCTAssertTrue(app.buttons["<<<"].isEnabled == false)
+        
+        app.buttons["Reset"].tap()
+        XCTAssertTrue(dbTableView.cells.staticTexts["Node0"].waitForExistence(timeout: 5))
+        
+        XCTAssertTrue(app.buttons["+"].isEnabled == false)
+        XCTAssertTrue(app.buttons["-"].isEnabled == false)
+        XCTAssertTrue(app.buttons["a"].isEnabled == false)
+        XCTAssertTrue(app.buttons["Apply"].isEnabled == false)
+        XCTAssertEqual(cacheTableView.cells.count, 0)
+    }
+    
+    func testCantChangeEntryWithEmptyValue() {
+        let dbTableView = app.tables.matching(identifier: "dbTableViewIdentifier")
+        let cacheTableView = app.tables.matching(identifier: "cacheTableViewIdentifier")
+        
+        dbTableView.cells.staticTexts["Node1"].tap()
+        
+        XCTAssertTrue(app.buttons["<<<"].isEnabled == true)
+        app.buttons["<<<"].tap()
+        XCTAssertTrue(cacheTableView.cells.staticTexts["Node1"].exists)
+        
+        cacheTableView.cells.staticTexts["Node1"].tap()
+        XCTAssertTrue(app.buttons["a"].isEnabled == true)
+        
+        app.buttons["a"].tap()
+        XCTAssertTrue(app.otherElements.alerts["Change entry"].exists)
+        
+        app.buttons["Change"].tap()
+        XCTAssertTrue(cacheTableView.cells.staticTexts["Node1"].exists)
+        XCTAssertEqual(cacheTableView.cells.count, 1)
+    }
 }
