@@ -8,6 +8,19 @@
 import Foundation
 
 final class DefaultDatabase: Database {
+    
+    public enum UniqueId {
+        private static var idSequence = sequence(first: UInt64(0), next: { $0 + 1 })
+        
+        public static func generate() -> UInt64 {
+            return idSequence.next()!
+        }
+        
+        public static func reset() {
+            idSequence = sequence(first: UInt64(0), next: { $0 + 1 })
+        }
+    }
+    
     private var dbEntries = [UInt64: DbEntry](minimumCapacity: 25)
     
     init() {

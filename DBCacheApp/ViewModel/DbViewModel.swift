@@ -177,7 +177,7 @@ final class DefaultDbViewModel: DbViewModel {
     }
     
     //MARK: Private DefaultDbViewModel methods to work with cache
-    private func cacheAddNew(value: String, id: UInt64 = UniqueId.generate(), parentId: UInt64?, isRemoved: Bool = false, isNew: Bool = false) {
+    private func cacheAddNew(value: String, id: UInt64 = DefaultDatabase.UniqueId.generate(), parentId: UInt64?, isRemoved: Bool = false, isNew: Bool = false) {
         var shouldBeRemoved: Bool = isRemoved
         
         // if ROOT is removed in cache then

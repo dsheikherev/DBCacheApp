@@ -38,7 +38,7 @@ class DefaultDataBaseTests: XCTestCase {
     
     func testCountOnNewEntryAdded() {
         let countBefore = database.getAllEntries().count
-        let id = UniqueId.generate()
+        let id = DefaultDatabase.UniqueId.generate()
         database.addEntry(id: id, value: "NewNode", parentId: 0, isRemoved: false)
         let countAfter = database.getAllEntries().count
         
@@ -46,7 +46,7 @@ class DefaultDataBaseTests: XCTestCase {
     }
     
     func testValueAddedOnAddEntry() {
-        let id = UniqueId.generate()
+        let id = DefaultDatabase.UniqueId.generate()
         let valueBefore = "NewNode"
         database.addEntry(id: id, value: valueBefore, parentId: 0, isRemoved: false)
         let valueAfter = database.getEntry(with: id)?.value
@@ -85,7 +85,7 @@ class DefaultDataBaseTests: XCTestCase {
     
     func testEmptyValueOnNewEntryAdded() {
         let countBefore = database.getAllEntries().count
-        let id = UniqueId.generate()
+        let id = DefaultDatabase.UniqueId.generate()
         database.addEntry(id: id, value: "", parentId: 0, isRemoved: false)
         let countAfter = database.getAllEntries().count
         
@@ -112,7 +112,7 @@ class DefaultDataBaseTests: XCTestCase {
         let countBefore = database.getAllEntries().count
         
         for i in 0 ..< 2 {
-            let id = UniqueId.generate()
+            let id = DefaultDatabase.UniqueId.generate()
             database.addEntry(id: id, value: "NewNode\(i)", parentId: 0, isRemoved: false)
         }
         

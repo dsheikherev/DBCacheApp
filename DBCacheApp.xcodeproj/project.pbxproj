@@ -10,7 +10,6 @@
 		EF0AC93926590ED7003CE696 /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0AC93826590ED7003CE696 /* Entry.swift */; };
 		EF0AC93B265925CB003CE696 /* CacheEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0AC93A265925CB003CE696 /* CacheEntry.swift */; };
 		EF0AC93D265925D5003CE696 /* DbEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0AC93C265925D5003CE696 /* DbEntry.swift */; };
-		EF0AC94026592C2D003CE696 /* UniqueId.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0AC93F26592C2D003CE696 /* UniqueId.swift */; };
 		EF0AC94226592FD3003CE696 /* DefaultDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0AC94126592FD3003CE696 /* DefaultDatabase.swift */; };
 		EF0AC94426595B19003CE696 /* DbViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0AC94326595B19003CE696 /* DbViewModel.swift */; };
 		EF0AC9462659FFD9003CE696 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0AC9452659FFD9003CE696 /* Observable.swift */; };
@@ -50,7 +49,6 @@
 		EF0AC93826590ED7003CE696 /* Entry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry.swift; sourceTree = "<group>"; };
 		EF0AC93A265925CB003CE696 /* CacheEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheEntry.swift; sourceTree = "<group>"; };
 		EF0AC93C265925D5003CE696 /* DbEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DbEntry.swift; sourceTree = "<group>"; };
-		EF0AC93F26592C2D003CE696 /* UniqueId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniqueId.swift; sourceTree = "<group>"; };
 		EF0AC94126592FD3003CE696 /* DefaultDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultDatabase.swift; sourceTree = "<group>"; };
 		EF0AC94326595B19003CE696 /* DbViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DbViewModel.swift; sourceTree = "<group>"; };
 		EF0AC9452659FFD9003CE696 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
@@ -148,7 +146,6 @@
 		EF0AC93E26592C1E003CE696 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				EF0AC93F26592C2D003CE696 /* UniqueId.swift */,
 				EF0AC9452659FFD9003CE696 /* Observable.swift */,
 			);
 			path = Helper;
@@ -360,7 +357,6 @@
 			files = (
 				EF0AC93B265925CB003CE696 /* CacheEntry.swift in Sources */,
 				EF2CD1F7265CA4AA00A582BD /* UIViewController+Extension.swift in Sources */,
-				EF0AC94026592C2D003CE696 /* UniqueId.swift in Sources */,
 				EF0FB90F265601740093D68A /* ViewController.swift in Sources */,
 				EF0AC94426595B19003CE696 /* DbViewModel.swift in Sources */,
 				EF0FB90B265601740093D68A /* AppDelegate.swift in Sources */,
