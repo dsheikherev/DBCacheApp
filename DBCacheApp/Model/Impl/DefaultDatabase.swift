@@ -109,7 +109,7 @@ final class DefaultDatabase: Database {
         dbEntries[id] = DbEntry(id: id, value: "Node5", parentId: 4)
         
         id = UniqueId.generate()
-        dbEntries[id] = DbEntry(id: id, value: "Node6", parentId: 0)
+        dbEntries[id] = DbEntry(id: id, value: "Node6", parentId: 1)
         id = UniqueId.generate()
         dbEntries[id] = DbEntry(id: id, value: "Node7", parentId: 6)
         id = UniqueId.generate()
@@ -123,9 +123,19 @@ final class DefaultDatabase: Database {
         dbEntries[id] = DbEntry(id: id, value: "Node11", parentId: 10)
         id = UniqueId.generate()
         dbEntries[id] = DbEntry(id: id, value: "Node12", parentId: 11)
+        id = UniqueId.generate()
+        dbEntries[id] = DbEntry(id: id, value: "Node13", parentId: 12)
+        
+        
+        id = UniqueId.generate()
+        dbEntries[id] = DbEntry(id: id, value: "Node14", parentId: 0)
+        id = UniqueId.generate()
+        dbEntries[id] = DbEntry(id: id, value: "Node15", parentId: 14)
+        id = UniqueId.generate()
+        dbEntries[id] = DbEntry(id: id, value: "Node16", parentId: 15)
 
         id = UniqueId.generate()
-        dbEntries[id] = DbEntry(id: id, value: "Node13", parentId: 0)
+        dbEntries[id] = DbEntry(id: id, value: "Node17", parentId: 0)
     }
 
 }
