@@ -124,4 +124,22 @@ class DefaultDataBaseTests: XCTestCase {
         let countAfterReset = database.getAllEntries().count
         XCTAssertEqual(countBefore, countAfterReset)
     }
+    
+    func testNewEntryOnAddedToRemovedParent() {
+        let node1Id: UInt64 = 1
+        var node1 = database.getEntry(with: node1Id)
+        XCTAssertEqual(node1!.isRemoved, false)
+        
+        database.removeEntry(id: node1Id)
+        node1 = database.getEntry(with: node1Id)
+        
+        let id = DefaultDatabase.UniqueId.generate()
+        database.addEntry(id: id, value: "NewNodeToRemovedParent", parentId: node1Id, isRemoved: false)
+        let removedChild = database.getEntry(with: id)
+        
+        // If we ask for removed entry
+        // as a result we get nil.
+        // So nil will mean isRemoved = true
+        XCTAssertEqual(removedChild?.isRemoved ?? true, true)
+    }
 }

@@ -54,7 +54,9 @@ final class DefaultDatabase: Database {
         guard let parentId = parentId else { return false }
         guard !value.isEmpty else { return false }
         
-        dbEntries[id] = DbEntry(id: id, value: value, parentId: parentId, isRemoved: isRemoved)
+        let isParentRemoved = dbEntries[parentId]?.isRemoved ?? false
+        
+        dbEntries[id] = DbEntry(id: id, value: value, parentId: parentId, isRemoved: isParentRemoved ? true : isRemoved)
         return true
     }
     
