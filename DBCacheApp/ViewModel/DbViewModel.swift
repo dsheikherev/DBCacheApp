@@ -155,11 +155,26 @@ final class DefaultDbViewModel: DbViewModel {
             }
         }
         
-        cache.removeAll()
-        rootIsRemoved = false
-        cacheTableEntries.value.removeAll()
-        isCacheChangesAllowed.value = false
-        isApplyChangesAllowed.value = false
+        // Update cache to receive latest changes Db
+        for entry in cache {
+            let id = entry.id
+            if let dbEntry = dataBase.getEntry(with: id) {
+                entry.isNew = false
+                entry.value = dbEntry.value
+                entry.parentId = dbEntry.parentId
+                entry.isRemoved = dbEntry.isRemoved
+            }
+        }
+        
+        let grouped = groupParentsWithChildren(in: cache)
+        cacheTableEntries.value = makeTable(of: grouped)
+        // Do not clean up cache and its tableView
+        // We should continue to work with it
+//        cache.removeAll()
+//        rootIsRemoved = false
+//        cacheTableEntries.value.removeAll()
+//        isCacheChangesAllowed.value = false
+//        isApplyChangesAllowed.value = false
         
         load()
     }
